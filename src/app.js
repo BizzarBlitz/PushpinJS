@@ -8,11 +8,18 @@ const CommandCallbacks = {
 
 const Client = new DiscordJS.Client({
 	intents: [
-		DiscordJS.GatewayIntentBits.Guilds
+		DiscordJS.GatewayIntentBits.Guilds,
+		DiscordJS.GatewayIntentBits.GuildMessages,
 	]
 })
 
 
+
+Client.on(DiscordJS.Events.MessageCreate, (message) => {
+	if (message.id !== message.channelId) return;
+
+	message.pin("Autopinned")
+})
 
 Client.on(DiscordJS.Events.InteractionCreate, async interaction => {
 	if (!interaction.isMessageContextMenuCommand()) return;
