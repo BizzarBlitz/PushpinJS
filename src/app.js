@@ -3,7 +3,7 @@ require("dotenv").config()
 const DiscordJS = require("discord.js")
 
 const CommandCallbacks = {
-	["Pin/Unpin"]: import("./CommandCallbacks/pin.mjs")
+	["Pin/Unpin message"]: import("./CommandCallbacks/pin.mjs")
 }
 
 const Client = new DiscordJS.Client({
@@ -11,6 +11,7 @@ const Client = new DiscordJS.Client({
 		DiscordJS.GatewayIntentBits.Guilds
 	]
 })
+
 
 
 Client.on(DiscordJS.Events.InteractionCreate, async interaction => {
@@ -23,10 +24,11 @@ Client.on(DiscordJS.Events.InteractionCreate, async interaction => {
 	}
 
 	interaction.reply({
-		content: callback(interaction, Client) || "Done",
+		content: await (await callback).default(interaction, Client) || "Done",
 		ephemeral: true,
 	})
 })
 
-console.log(process.env.TOKEN)
+
+
 Client.login(process.env.TOKEN)

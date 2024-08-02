@@ -40,5 +40,5 @@ async function registerCommands(commands, guildId) {
 
 
 
-// registerCommands(Commands) // Register for all servers
-registerCommands(Commands, process.env.GUILD_ID) // Register for specific server
+registerCommands(Commands) // Register for all servers
+// registerCommands(Commands, process.env.GUILD_ID) // Register for specific server
